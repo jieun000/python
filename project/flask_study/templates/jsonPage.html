@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('button').click(function() {
+                var one = $('input[name=a]').val()
+                var two = $('input[name=b]').val()
+                $.ajax({
+                    url: "/jsonPage2",
+                    contentType: "application/json", //전송 데이터 타입을  JSON으로 설정
+                    dataType: "json", //응답 데이터 타입을 JSON으로 설정
+                    data: JSON.stringify({one, two}),
+                    type: "POST",
+                    success: function (response) {
+                      $("#data1").val(response.mail)
+                      $("#data2").text(response.number)
+                    },
+                    error: function (e) {
+                      console.log(e);
+                    },
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <label for="a"></label>
+        <input type="email" id="a" name="a">
+    </div>
+    <div>
+        <label for="b"></label>
+        <input type="text" id="b" name="b">
+    </div>
+    <button>버튼</button>
+
+    <div style="border: 1px solid black;">
+        <input type="text" id="data1">
+        <div id="data2"></div>
+    </div>
+</body>
+</html>
